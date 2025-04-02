@@ -39,3 +39,14 @@ Explanation of the above commands.
 Python, Flask, VM's provided by AWS, Bash scripts (.sh), Linux.
 
 ![image](https://github.com/user-attachments/assets/6a03846a-bbcb-4701-b098-77492bd68af6)
+
+
+### !!!ATTENTION!!!
+IN ORDER TO WORK USE UBUNTU, NOT WSL!
+
+Requirements:  
+sudo apt install python3-pyfiglet  
+sudo apt install python3-prettytable  
+sudo apt install python3-flask  
+sudo apt install python-is-python3  
+
