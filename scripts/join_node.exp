@@ -1,0 +1,35 @@
+#!/usr/bin/expect -f
+
+set timeout 10 
+
+set host [lindex $argv 0]
+set mode [lindex $argv 1]
+
+set bootstrap_ip "10.0.39.177"
+
+spawn ssh $host "cd Chordify/src; python chordify.py"
+
+expect {
+    -re {Server is up and running in \S+:(\d+) !} {
+        set port $expect_out(1,string)
+        puts "Captured port: $port"
+    }
+    timeout {
+        puts "Timed out waiting for server port"
+        exit 1
+    }
+}
+
+if {$mode == "bootstrap"} {
+    send "join -b $bootstrap_ip $port\r"
+    expect "New chord created."
+    puts "BOOTSTRAP_PORT=$port"
+    expect ">"
+} else {
+    send "join\r"
+    expect ">"
+}
+
+# Use interact to keep the session open so the terminal doesn't immediately close.
+interact
+
